@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result</title>
+    <style>
+        .Fail {
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -22,13 +27,14 @@
         ];
 
         function check_pass_fail($marks_array){
-            $fail = false;
+            $result = 'Pass';
             foreach($marks_array as $value){
                 if($value < 40){
-                    $fail = true;
+                    $result = 'Fail';
+                    break;
                 }
             }
-            return $fail;
+            return $result;
         }
         
         function calculate_total($marks_array){
@@ -75,7 +81,8 @@
 
         for($i=0; $i < count($students); $i++){
             $sno = $i+1;
-            echo '<tr>';
+            $result = check_pass_fail($marks[$i]);
+            echo "<tr class='".$result."'>";
             echo '<td>'.$sno.'</td>';
             foreach($students[$i] as $value){
                  echo '<td>'.$value.'</td>';
@@ -85,12 +92,7 @@
             }
             //pass_fail
             echo '<td>';
-            $result = check_pass_fail($marks[$i]);
-            if($result){
-                echo "Fail";
-            }else{
-                echo "Pass";
-            }
+            echo $result;
             echo '</td>';
 
             //total marks
