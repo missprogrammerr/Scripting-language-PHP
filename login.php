@@ -47,12 +47,19 @@
         // echo 'Password is '.$_POST['password'];
 
         //isset to check whether variable exist or not
-        if(isset($_POST['username']) && empty(trim($_POST['username'])) && trim($_POST['username'])){
+        if(isset($_POST['username']) && empty(trim($_POST['username']))){
+            $errUsername = 'Invalid Username';
+        }else{
             $username = trim($_POST['username']);
             echo'Username is '.$username;
             echo '<br/>';
+        }
+        if(isset($_POST['password']) && empty(trim($_POST['password']))){
+            $errPassword = 'Invalid Password';
         }else{
-            $errUsername = 'Invalid Username';
+            $password = trim($_POST['password']);
+            echo'Password is '.$password;
+            echo '<br/>';
         }
     }
     ?>
@@ -69,6 +76,8 @@
             <div>
                 <label for="password" name="password">Password:</label>
                 <input type="password" name="password" id="password"/>
+                <br/>
+                <span class="error"><?php echo isset($errPassword) ? $errPassword:''; ?></span>
             </div>
             <br/>
             <div>
