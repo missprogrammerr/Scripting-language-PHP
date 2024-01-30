@@ -103,7 +103,7 @@
   <span id="err_email"><?php echo isset($errEmail) ? $errEmail:''; ?></span>
 
   <select name="sector">
-    <option value="business" selected="<?php echo ($sector=='business')?$sector:'';?>">Business</option>
+    <option value="business" <?php echo ($sector=='business')?'selected':'';?>>Business</option>
     <option value="it">Info Tech</option>
     <option value="finance">Finance</option>
   </select>
