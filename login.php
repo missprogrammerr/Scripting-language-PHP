@@ -40,7 +40,9 @@
     // echo '<br/>';
     // print_r($_REQUEST);
     // echo '<br/>';
+    //echo $_SERVER['PHP_SELF'] returns the current web page name
     
+    $username = '';
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         // echo 'Username is '.$_POST['username'];
         // echo '<br/>';
@@ -48,18 +50,14 @@
 
         //isset to check whether variable exist or not
         if(isset($_POST['username']) && empty(trim($_POST['username']))){
-            $errUsername = 'Invalid Username';
+            $errUsername = 'Please enter username.';
         }else{
             $username = trim($_POST['username']);
-            echo'Username is '.$username;
-            echo '<br/>';
         }
         if(isset($_POST['password']) && empty(trim($_POST['password']))){
-            $errPassword = 'Invalid Password';
+            $errPassword = 'Please enter password';
         }else{
             $password = trim($_POST['password']);
-            echo'Password is '.$password;
-            echo '<br/>';
         }
     }
     ?>
@@ -68,7 +66,7 @@
         <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
             <div>
                 <label for="username" name="username">Username:</label>
-                <input type="text" name="username" id="username"/>
+                <input type="text" name="username" id="username" value="<?php echo $username;?>"/>
                 <br/>
                 <span class="error"><?php echo isset($errUsername) ? $errUsername:''; ?></span>
             </div>
