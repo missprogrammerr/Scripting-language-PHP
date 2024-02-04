@@ -43,21 +43,34 @@
     //echo $_SERVER['PHP_SELF'] returns the current web page name
     
     $username = '';
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        // echo 'Username is '.$_POST['username'];
-        // echo '<br/>';
-        // echo 'Password is '.$_POST['password'];
+    $db_username = 'astra';
+    $db_password = 'paradox123';
+    $error = false;
 
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
         //isset to check whether variable exist or not
         if(isset($_POST['username']) && empty(trim($_POST['username']))){
             $errUsername = 'Please enter username.';
+            $error = true;
         }else{
             $username = trim($_POST['username']);
         }
         if(isset($_POST['password']) && empty(trim($_POST['password']))){
             $errPassword = 'Please enter password';
+            $error = true;
         }else{
             $password = trim($_POST['password']);
+        }
+
+        if($error == false){
+            if($username === $db_username && $password === $db_password){
+                session_start();
+                $_SESSION['user_id'] = md5(rand());
+                $_SESSION['username'] = $username;
+                header('Location: dashboard.php');
+            }else{
+                $errLogin = 'Invalid Credentials!';
+            }
         }
     }
     ?>
@@ -80,6 +93,8 @@
             <br/>
             <div>
                 <input type="submit" name="login" value="Login"/>
+                <br/><br/>
+                <span class="error"><?php echo isset($errLogin) ? $errLogin:''; ?></span>
             </div>
         </form>
     </div>

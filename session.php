@@ -40,6 +40,13 @@
         echo '<br/>';
         echo $_COOKIE['PHPSESSID'];
 
+        //deleting cookie
+        //There is no special dedicated function provided in PHP to delete a cookie. All we have to do is to 
+        //update the expire-time value of the cookie by setting it to a past time using the setcookie() function.
+        unset($_COOKIE['username']);
+        setcookie('username', '', time()-3600, '/');
+        echo '<br/>'.'Cookie: ';
+        print_r($_COOKIE);
 
     ?>
 </body>
