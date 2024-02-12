@@ -41,6 +41,12 @@
     // print_r($_REQUEST);
     // echo '<br/>';
     //echo $_SERVER['PHP_SELF'] returns the current web page name
+
+    if(isset($_COOKIE['username'])){
+        session_start();
+        $_SESSION['username'] = $_COOKIE['username'];
+        header('Location: dashboard.php');
+    }
     
     $username = '';
     $db_username = 'astra';
@@ -67,6 +73,9 @@
                 session_start();
                 $_SESSION['user_id'] = md5(rand());
                 $_SESSION['username'] = $username;
+                if(isset($_POST['remember'])){
+                    setcookie('username', $username, time()+7*24*60*60);
+                }
                 header('Location: dashboard.php');
             }else{
                 $errLogin = 'Invalid Credentials!';
@@ -91,6 +100,8 @@
                 <span class="error"><?php echo isset($errPassword) ? $errPassword:''; ?></span>
             </div>
             <br/>
+            <input type="checkbox" name="remember" value="remember"/><span>Remember me</span>
+            <br/><br/>
             <div>
                 <input type="submit" name="login" value="Login"/>
                 <br/><br/>
